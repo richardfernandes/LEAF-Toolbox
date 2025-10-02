@@ -5,12 +5,11 @@
 
 LEAF is an application that produces maps of vegetation from satellite imagery using Google Earth Engine.
 
-Fernandes, R. et al., 2021, "LEAF Toolbox", Canada Centre for Remote Sensing, https://github.com/rfernand387/LEAF-Toolbox/wiki, DOI: 10.5281/zenodo.4321298. (full list of names in footer!)
+Fernandes, R. et al., 2021, "LEAF Toolbox", Canada Centre for Remote Sensing, https://github.com/rfernand387/LEAF-Toolbox, DOI: 10.5281/zenodo.4321298. (full list of names in footer!)
 
 - How does it work?
 
-If you are new to LEAF consider reading the wiki for this repository (https://github.com/rfernand387/LEAF-Toolbox/wiki)
-
+If you are new to LEAF consider reading the [wiki](https://github.com/richardfernandes/LEAF-Toolbox/wiki) for this repository.
 
 - Who will use this project?
 
