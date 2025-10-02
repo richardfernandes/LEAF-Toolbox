@@ -11,6 +11,7 @@ You will need an Anaconda environment configured as:
 >>conda install -c conda-forge jupyterlab -y
 >>conda install -c conda-forge earthengine-api -y
 >>conda install -c conda-forge pandas -y
+>>pip install geetools
 
 Then run as follows:
 >Anaconda
