@@ -359,32 +359,7 @@ def sampleSites(siteList,
         featureRange[1]=np.int32(np.nanmin([featureRange[1],sampleRecords.size().getInfo()]))
 
         #  if local output initalize empty list for outputs, define output file name  , and write metadata of this run       
-        if ( exportDevice in ['local'] ):
-            # parse output path
-            if outputPath==None:
-                outputPathName=os.getcwd()
-            ofn='_'.join([os.path.split(os.path.abspath(siteList[0]))[-1],imageCollectionName.replace('/','_'),variableName,str(featureRange[0]),str(featureRange[1]),algorithm.__name__,startDate.strftime("%Y_%m_%d_%Hh_%mmn"),datetime.now().strftime("%Y_%m_%d_%Hh_%mmn")+'.pkl'])
-            outputFileName=os.path.join(outputPath,ofn)
-            print('Output file: %s'%(outputFileName))
-
-            #save data search parameters
-            params = ['input','imageCollectionName','outputName','algorithm','variableName','maxCloudcover','outputScale','inputScale',\
-                      'bufferSpatialSize','bufferTemporalSize','subsamplingFraction','featureRange','startDate','endDate', \
-                        'calendarStart','calendarEnd','calendarField','prefixProperty']
-            for pp in params:
-                if pp == params[0]:
-                    txt=''
-                txt=txt+pp+': %s\n'%(eval(pp))
-            with open(outputFileName.replace('.pkl','_metadata.txt'), "a") as fp:   
-                fp.write(txt)
-                fp.close()
-
-            # initialize local output for this set of sites
-            result = []
-            outputDictionary = {}
-
-        else:
-            if outputPath==None:
+        if exportDevice==None:
                 raise ValueError("Output Drive/Asset Folder/CloudStorage Path missing.")
             
 
@@ -425,7 +400,7 @@ def sampleSites(siteList,
                                                    bufferSpatialSize,
                                                    inputScale,
                                                    Dates['startDate'],
-                                                   Dates['endDate'],
+                                                   Dates['endDate']+ timedelta(days=1),
                                                    calendarStart,
                                                    calendarEnd,
                                                    calendarField,
@@ -479,23 +454,11 @@ def sampleSites(siteList,
                         # You can optionally print the task ID to monitor its progress in the Earth Engine Code Editor's Tasks tab
                         print(f"Export task started with ID: {task.id}")
 
-            if ( exportDevice in ['Client'] ):
-                result.append({'feature': ee.Dictionary(ee.Feature(sampleRecords.get(n)).toDictionary()).getInfo() , \
-                            algorithm.__name__ : samplesDF })            
-                #dump every 100
-                outputDictionary.update({input: result})
-                if (( n % 100 ) == 0 ):
-                    with open(outputFileName.replace('.pkl','_raw.pkl'), "wb") as fpr:   #Pickling
-                        pickle.dump(outputDictionary, fpr)
+
                 
         print('\nDONE LEAF.sampleSites\n')
-        if ( exportDevice in ['Client'] ):
-            if ( outputFileName ):
-                with open(outputFileName, "wb") as fp:   #Pickling
-                    pickle.dump(outputDictionary, fp)
-            return outputDictionary
-        else:
-            return True
+
+        return True
 
 
 # produce output for a temporal and spatial sub-sample features for all sites in a list of provided GEE feature collections
@@ -605,7 +568,7 @@ def imageSites(siteList,
                                                    bufferSpatialSize,
                                                    inputScale,
                                                    Dates['startDate'],
-                                                   Dates['endDate'],
+                                                   Dates['endDate']+ timedelta(days=1),
                                                    calendarStart,
                                                    calendarEnd,
                                                    calendarField,
