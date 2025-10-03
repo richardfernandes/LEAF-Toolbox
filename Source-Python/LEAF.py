@@ -365,7 +365,7 @@ def sampleSites(siteList,
 
         # start sampling features requested from each site
         print('Processing Features: from %s to %s'%(featureRange[0],featureRange[1]))
-        for n in range(featureRange[0],featureRange[1]) :
+        for n in range(featureRange[0],featureRange[1]+1) :
 
             # select feature to process
             site = ee.Feature(sampleRecords.get(n))
@@ -533,7 +533,7 @@ def imageSites(siteList,
 
         # start sampling features requested from each site
         print('Processing Features: from %s to %s'%(featureRange[0],featureRange[1]))
-        for n in range(featureRange[0],featureRange[1]) :
+        for n in range(featureRange[0],featureRange[1]+1) :
 
             # select feature to process
             site = ee.Feature(sampleRecords.get(n))
