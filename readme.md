@@ -1,5 +1,5 @@
 
-## Welcome to the Landscape Evolution And Forecasting (LEAF)-Toolbox
+## Welcome to the Landscape Evolution And Forecasting (LEAF) Toolbox
 
 - What is this project?
 
